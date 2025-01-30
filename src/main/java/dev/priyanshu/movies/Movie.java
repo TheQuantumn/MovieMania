@@ -9,16 +9,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
-@Document(collection ="movie")
+@Document(collection = "movie")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Movie {
+
     @Id
     @JsonSerialize(using = ToStringSerializer.class)
     private ObjectId id;
@@ -44,6 +46,7 @@ public class Movie {
     @JsonProperty("backdrops")
     private List<String> backdrops;
 
+    @DBRef(lazy = false)
     @JsonProperty("reviewIds")
     private List<Review> reviewIds;
 }
